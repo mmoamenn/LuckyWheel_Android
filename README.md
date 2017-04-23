@@ -46,33 +46,36 @@ Android component for lucky wheel view easy to integrate and
  
  * Create wheel sections 
  
- `List<WheelItem> wheelItems = new ArrayList<>();`
+    `List<WheelItem> wheelItems = new ArrayList<>();`
  
- `wheelItems.add(new WheelItem(Color.LTGRAY, BitmapFactory.decodeResource(getResources(),
+    `wheelItems.add(new WheelItem(Color.LTGRAY, BitmapFactory.decodeResource(getResources(),
                  R.drawable.ic_action_name)));`
                  
- `wheelItems.add(new WheelItem(Color.BLUE, BitmapFactory.decodeResource(getResources(),
+    `wheelItems.add(new WheelItem(Color.BLUE, BitmapFactory.decodeResource(getResources(),
                  R.drawable.ic_action_name)));`
                  
- `wheelItems.add(new WheelItem(Color.BLACK, BitmapFactory.decodeResource(getResources(),
+    `wheelItems.add(new WheelItem(Color.BLACK, BitmapFactory.decodeResource(getResources(),
                  R.drawable.ic_action_name)));`
                  
- `wheelItems.add(new WheelItem(Color.GRAY, BitmapFactory.decodeResource(getResources(),
+    `wheelItems.add(new WheelItem(Color.GRAY, BitmapFactory.decodeResource(getResources(),
                  R.drawable.ic_action_name)));`
                  
- * Add section to wheel  
+ * Add sections to wheel  
  
- `addWheelItems(wheelItems);`
+    `addWheelItems(wheelItems);`
  
- * Rotate to any section section 
+ * Rotate to any section 
  
- `rotateWheelTo(2);`
+    `rotateWheelTo(2);`
  
  * On target reach listener
  
- `setLuckyWheelReachTheTarget(new OnLuckyWheelReachTheTarget() {
+        setLuckyWheelReachTheTarget(new OnLuckyWheelReachTheTarget() {
+             
              @Override
              public void onReachTarget() {
-                 // target reached do operation her 
+             
+                 // target reached do operation her    
+             
              }
-         });`
+         });
