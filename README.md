@@ -44,7 +44,7 @@ Android component for lucky wheel view easy to integrate and
  
  Functions to use after reference the Lucky wheel
  
- Create wheel sections 
+ * Create wheel sections 
  
  `List<WheelItem> wheelItems = new ArrayList<>();`
  
@@ -60,15 +60,15 @@ Android component for lucky wheel view easy to integrate and
  `wheelItems.add(new WheelItem(Color.GRAY, BitmapFactory.decodeResource(getResources(),
                  R.drawable.ic_action_name)));`
                  
- Add section to wheel  
+ * Add section to wheel  
  
  `addWheelItems(wheelItems);`
  
- Rotate to any section section 
+ * Rotate to any section section 
  
  `rotateWheelTo(2);`
  
- On target reach listener
+ * On target reach listener
  
  `setLuckyWheelReachTheTarget(new OnLuckyWheelReachTheTarget() {
              @Override
