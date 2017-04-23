@@ -51,7 +51,7 @@ public class LuckyWheel extends FrameLayout {
         TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.LuckyWheel, 0, 0);
         try {
             int backgroudnColor = typedArray.getColor(R.styleable.LuckyWheel_background_color, Color.GREEN);
-            int arrowImage = typedArray.getInt(R.styleable.LuckyWheel_arrow_image, R.drawable.arrow);
+            int arrowImage = typedArray.getResourceId(R.styleable.LuckyWheel_arrow_image, R.drawable.arrow);
 
             wheelView.setWheelBackgoundWheel(backgroudnColor);
             arrow.setImageResource(arrowImage);

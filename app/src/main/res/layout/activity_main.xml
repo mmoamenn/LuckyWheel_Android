@@ -12,6 +12,7 @@
         android:layout_width="250dp"
         android:layout_height="250dp"
         android:layout_centerInParent="true"
-        LuckyWheel:background_color="@color/colorPrimary" />
+        LuckyWheel:background_color="@color/colorPrimary"
+        LuckyWheel:arrow_image="@drawable/ic_action"/>
 
 </RelativeLayout>

@@ -4,7 +4,7 @@
     <declare-styleable name="LuckyWheel">
 
         <attr name="background_color" format="color"/>
-        <attr name="arrow_image" format="integer"/>
+        <attr name="arrow_image" format="reference"/>
 
     </declare-styleable>
 
