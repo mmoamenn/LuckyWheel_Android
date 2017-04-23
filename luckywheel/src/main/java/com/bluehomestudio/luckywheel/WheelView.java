@@ -1,5 +1,6 @@
 package com.bluehomestudio.luckywheel;
 
+import android.animation.Animator;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -25,6 +26,7 @@ public class WheelView extends View {
     private Paint archPaint;
     private int padding, radius, center, mWheelBackground;
     private List<WheelItem> mWheelItems;
+    private OnLuckyWheelReachTheTarget mOnLuckyWheelReachTheTarget;
 
     public WheelView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -60,6 +62,15 @@ public class WheelView extends View {
     public void setWheelBackgoundWheel(int wheelBackground) {
         mWheelBackground = wheelBackground;
         invalidate();
+    }
+
+    /**
+     * Function to set wheel listener
+     *
+     * @param onLuckyWheelReachTheTarget target reach listener
+     */
+    public void setWheelListener(OnLuckyWheelReachTheTarget onLuckyWheelReachTheTarget) {
+        mOnLuckyWheelReachTheTarget = onLuckyWheelReachTheTarget;
     }
 
     /**
@@ -119,6 +130,29 @@ public class WheelView extends View {
         animate().setInterpolator(new DecelerateInterpolator())
                 .setDuration(DEFAULT_ROTATION_TIME)
                 .rotation((360 * 15) + wheelItemCenter)
+                .setListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        if (mOnLuckyWheelReachTheTarget != null) {
+                            mOnLuckyWheelReachTheTarget.onReachTarget();
+                        }
+                    }
+
+                    @Override
+                    public void onAnimationCancel(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animator animation) {
+
+                    }
+                })
                 .start();
     }
 

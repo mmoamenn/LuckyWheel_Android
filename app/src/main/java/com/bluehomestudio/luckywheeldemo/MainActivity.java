@@ -4,8 +4,10 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import com.bluehomestudio.luckywheel.LuckyWheel;
+import com.bluehomestudio.luckywheel.OnLuckyWheelReachTheTarget;
 import com.bluehomestudio.luckywheel.WheelItem;
 
 import java.util.ArrayList;
@@ -33,10 +35,17 @@ public class MainActivity extends AppCompatActivity {
                 R.drawable.ic_action_name)));
 
 
-        LuckyWheel lwv = (LuckyWheel) findViewById(R.id.lwv);
-        lwv.addWheelItems(wheelItems);
+        LuckyWheel lw = (LuckyWheel) findViewById(R.id.lwv);
+        lw.addWheelItems(wheelItems);
 
-        lwv.rotateWheelTo(1);
+        lw.rotateWheelTo(1);
+
+        lw.setLuckyWheelReachTheTarget(new OnLuckyWheelReachTheTarget() {
+            @Override
+            public void onReachTarget() {
+                Toast.makeText(MainActivity.this, "Target Reached", Toast.LENGTH_LONG).show();
+            }
+        });
 
     }
 }

@@ -62,6 +62,15 @@ public class LuckyWheel extends FrameLayout {
     }
 
     /**
+     * Function to set lucky wheel reach the target listener
+     *
+     * @param onLuckyWheelReachTheTarget Lucky wheel listener
+     */
+    public void setLuckyWheelReachTheTarget(OnLuckyWheelReachTheTarget onLuckyWheelReachTheTarget) {
+        wheelView.setWheelListener(onLuckyWheelReachTheTarget);
+    }
+
+    /**
      * Function to rotate wheel to degree
      *
      * @param number Number to rotate
