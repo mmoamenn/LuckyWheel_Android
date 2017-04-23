@@ -5,7 +5,7 @@ Android component for lucky wheel view easy to integrate and
  
  **Sample**
  
- ![Lucky wheel]https://github.com/mmoamenn/LuckyWheel_Android/blob/master/samples/videotogif_2017.04.24_01.42.22.gif
+ ![Lucky wheel](https://github.com/mmoamenn/LuckyWheel_Android/blob/master/samples/videotogif_2017.04.24_01.42.22.gif)
   
  **Installing**
  
