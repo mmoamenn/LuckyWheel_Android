@@ -59,6 +59,7 @@ public class LuckyWheel extends FrameLayout {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        typedArray.recycle();
     }
 
     /**
@@ -76,7 +77,7 @@ public class LuckyWheel extends FrameLayout {
      * @param number Number to rotate
      */
     public void rotateWheelTo(int number) {
-        wheelView.rotateWheelToTarget(number);
+        wheelView.resetRotationLocationToZeroAngle(number);
     }
 
 }

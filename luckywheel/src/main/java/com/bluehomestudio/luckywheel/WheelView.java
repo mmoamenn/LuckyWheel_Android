@@ -141,6 +141,7 @@ public class WheelView extends View {
                         if (mOnLuckyWheelReachTheTarget != null) {
                             mOnLuckyWheelReachTheTarget.onReachTarget();
                         }
+                        clearAnimation();
                     }
 
                     @Override
@@ -154,6 +155,38 @@ public class WheelView extends View {
                     }
                 })
                 .start();
+    }
+
+    /**
+     * Function to rotate to zero angle
+     *
+     * @param target target to reach
+     */
+    public void resetRotationLocationToZeroAngle(final int target) {
+        animate().setInterpolator(new DecelerateInterpolator())
+                .setDuration(0)
+                .rotation(0).setListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                rotateWheelToTarget(target);
+                clearAnimation();
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
     }
 
     @Override
