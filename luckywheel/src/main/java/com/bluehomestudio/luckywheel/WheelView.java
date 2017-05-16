@@ -163,8 +163,7 @@ public class WheelView extends View {
      * @param target target to reach
      */
     public void resetRotationLocationToZeroAngle(final int target) {
-        animate().setInterpolator(new DecelerateInterpolator())
-                .setDuration(0)
+        animate().setDuration(0)
                 .rotation(0).setListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
