@@ -21,7 +21,7 @@ Android component for lucky wheel view easy to integrate and
  Step 2. Add the dependency
  
  	dependencies {
- 		compile 'com.github.mmoamenn:LuckyWheel_Android:0.0.1'
+ 		compile 'com.github.mmoamenn:LuckyWheel_Android:0.0.2'
  	}
  	
  **XML**
