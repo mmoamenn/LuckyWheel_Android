@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Rect;
@@ -26,7 +27,9 @@ public class WheelView extends View {
     private int mRotationTime = DEFAULT_ROTATION_TIME;
 
     private RectF range = new RectF();
+    private Rect textBounds = new Rect();
     private Paint archPaint;
+    private Paint textPaint;
     private int padding, radius, center, mWheelBackground;
     private List<WheelItem> mWheelItems;
     private OnLuckyWheelReachTheTarget mOnLuckyWheelReachTheTarget;
@@ -44,6 +47,10 @@ public class WheelView extends View {
         archPaint = new Paint();
         archPaint.setAntiAlias(true);
         archPaint.setDither(true);
+        // text paint
+        textPaint = new Paint();
+        textPaint.setAntiAlias(true);
+        textPaint.setTextAlign(Paint.Align.LEFT);
         //rect rang of the arc
         range = new RectF(padding, padding, padding + radius, padding + radius);
     }
@@ -115,7 +122,7 @@ public class WheelView extends View {
      * @param tempAngle Temporary angle
      * @param bitmap    Bitmap to draw
      */
-    private void drawImage(Canvas canvas, float tempAngle, Bitmap bitmap) {
+    private int drawImage(Canvas canvas, float tempAngle, Bitmap bitmap) {
         //get every arc img width and angle
         int imgWidth = radius / mWheelItems.size();
         float angle = (float) ((tempAngle + 360 / mWheelItems.size() / 2) * Math.PI / 180);
@@ -129,10 +136,25 @@ public class WheelView extends View {
         matrix.postRotate(45);
         Bitmap rotatedBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
         canvas.drawBitmap(rotatedBitmap, null, rect, null);
+        return imgWidth;
     }
 
-    private void drawText(Canvas canvas, float tempAngle, String text) {
-
+    private void drawText(int imgWidth, Canvas canvas, float tempAngle, String text, int color, int size) {
+        float centerArcAngle = tempAngle + 360 / mWheelItems.size() / 2;
+        float angleInRad = (float) Math.toRadians(centerArcAngle);
+        //calculate x and y
+        int x = (int) (center + radius / 2 / 2 * Math.cos(angleInRad));
+        int y = (int) (center + radius / 2 / 2 * Math.sin(angleInRad));
+        // update paint
+        textPaint.setTextSize(size);
+        textPaint.setColor(color);
+        // draw text - move it to the end of the image + move it down half of the text size to be centered on the text's y axis
+        textPaint.getTextBounds(text, 0, text.length(), textBounds);
+        canvas.translate(x, y);
+        canvas.rotate(centerArcAngle);
+        canvas.drawText(text, imgWidth / 2, - textBounds.exactCenterY(), textPaint);
+        canvas.rotate(-centerArcAngle);
+        canvas.translate(-x, -y);
     }
 
     /**
@@ -147,7 +169,7 @@ public class WheelView extends View {
     /**
      * Function to rotate wheel to target
      *
-     * @param target target number
+     * @param target       target number
      * @param interpolator custom interpolator for rotation animation
      */
     public void rotateWheelToTarget(int target, Interpolator interpolator) {
@@ -186,7 +208,7 @@ public class WheelView extends View {
     /**
      * Function to rotate to zero angle
      *
-     * @param target target to reach
+     * @param target       target to reach
      * @param interpolator custom interpolator for rotation animation
      */
     public void resetRotationLocationToZeroAngle(final int target, final Interpolator interpolator) {
@@ -259,10 +281,11 @@ public class WheelView extends View {
         for (int i = 0; i < mWheelItems.size(); i++) {
             archPaint.setColor(mWheelItems.get(i).getColor());
             canvas.drawArc(range, tempAngle, sweepAngle, true, archPaint);
+            int imgWidth = 0;
             if (mWheelItems.get(i).getBitmap() != null)
-                drawImage(canvas, tempAngle, mWheelItems.get(i).getBitmap());
-            if (mWheelItems.get(i).getText() != null)
-                drawText(canvas, tempAngle, mWheelItems.get(i).getText());
+                imgWidth = drawImage(canvas, tempAngle, mWheelItems.get(i).getBitmap());
+            if (mWheelItems.get(i).getText() != null && mWheelItems.get(i).getText().length() > 0)
+                drawText(imgWidth, canvas, tempAngle, mWheelItems.get(i).getText(), mWheelItems.get(i).getTextColor(), mWheelItems.get(i).getTextSize());
             tempAngle += sweepAngle;
         }
 
