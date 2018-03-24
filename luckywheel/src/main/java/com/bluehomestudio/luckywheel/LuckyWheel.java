@@ -7,6 +7,7 @@ import android.support.annotation.AttrRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.view.animation.Interpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
@@ -80,4 +81,22 @@ public class LuckyWheel extends FrameLayout {
         wheelView.resetRotationLocationToZeroAngle(number);
     }
 
+    /**
+     * Function to rotate wheel to degree
+     *
+     * @param number Number to rotate
+     * @param interpolator custom interpolator for rotation animation
+     */
+    public void rotateWheelTo(int number, Interpolator interpolator) {
+        wheelView.resetRotationLocationToZeroAngle(number, interpolator);
+    }
+
+    /**
+     * Function to set the wheel rotation duration
+     *
+     * @param timeInMilliseconds time in ms that the wheel should rotate
+     */
+    public void setRotationTime(int timeInMilliseconds) {
+        wheelView.setRotationTime(timeInMilliseconds);
+    }
 }

@@ -12,6 +12,7 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
+import android.view.animation.Interpolator;
 
 import java.util.List;
 
@@ -21,6 +22,8 @@ import java.util.List;
 
 public class WheelView extends View {
     private final int DEFAULT_PADDING = 5, DEFAULT_ROTATION_TIME = 9000;
+
+    private int mRotationTime = DEFAULT_ROTATION_TIME;
 
     private RectF range = new RectF();
     private Paint archPaint;
@@ -84,6 +87,15 @@ public class WheelView extends View {
     }
 
     /**
+     * Function to set the wheel rotation duration
+     *
+     * @param timeInMilliseconds time in ms that the wheel should rotate
+     */
+    public void setRotationTime(int timeInMilliseconds) {
+        mRotationTime = timeInMilliseconds;
+    }
+
+    /**
      * Function to draw wheel background
      *
      * @param canvas Canvas of draw
@@ -119,16 +131,30 @@ public class WheelView extends View {
         canvas.drawBitmap(rotatedBitmap, null, rect, null);
     }
 
+    private void drawText(Canvas canvas, float tempAngle, String text) {
+
+    }
+
     /**
      * Function to rotate wheel to target
      *
      * @param target target number
      */
     public void rotateWheelToTarget(int target) {
+        rotateWheelToTarget(target, new DecelerateInterpolator());
+    }
+
+    /**
+     * Function to rotate wheel to target
+     *
+     * @param target target number
+     * @param interpolator custom interpolator for rotation animation
+     */
+    public void rotateWheelToTarget(int target, Interpolator interpolator) {
 
         float wheelItemCenter = 270 - getAngleOfIndexTarget(target) + (360 / mWheelItems.size()) / 2;
-        animate().setInterpolator(new DecelerateInterpolator())
-                .setDuration(DEFAULT_ROTATION_TIME)
+        animate().setInterpolator(interpolator)
+                .setDuration(mRotationTime)
                 .rotation((360 * 15) + wheelItemCenter)
                 .setListener(new Animator.AnimatorListener() {
                     @Override
@@ -155,6 +181,38 @@ public class WheelView extends View {
                     }
                 })
                 .start();
+    }
+
+    /**
+     * Function to rotate to zero angle
+     *
+     * @param target target to reach
+     * @param interpolator custom interpolator for rotation animation
+     */
+    public void resetRotationLocationToZeroAngle(final int target, final Interpolator interpolator) {
+        animate().setDuration(0)
+                .rotation(0).setListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                rotateWheelToTarget(target, interpolator);
+                clearAnimation();
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
     }
 
     /**
@@ -199,9 +257,12 @@ public class WheelView extends View {
         float sweepAngle = 360 / mWheelItems.size();
 
         for (int i = 0; i < mWheelItems.size(); i++) {
-            archPaint.setColor(mWheelItems.get(i).color);
+            archPaint.setColor(mWheelItems.get(i).getColor());
             canvas.drawArc(range, tempAngle, sweepAngle, true, archPaint);
-            drawImage(canvas, tempAngle, mWheelItems.get(i).bitmap);
+            if (mWheelItems.get(i).getBitmap() != null)
+                drawImage(canvas, tempAngle, mWheelItems.get(i).getBitmap());
+            if (mWheelItems.get(i).getText() != null)
+                drawText(canvas, tempAngle, mWheelItems.get(i).getText());
             tempAngle += sweepAngle;
         }
 
