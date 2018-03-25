@@ -109,4 +109,13 @@ public class LuckyWheel extends FrameLayout {
     public void setRotationTime(int timeInMilliseconds) {
         wheelView.setRotationTime(timeInMilliseconds);
     }
+
+    /**
+     * Function to set the text rotation to be horizontal instead of vertical
+     *
+     * @param horizontal true if text should be drawn horizontal
+     */
+    public void setTextRotationHorizontally(boolean horizontal) {
+        wheelView.setTextRotationHorizontally(horizontal);
+    }
 }

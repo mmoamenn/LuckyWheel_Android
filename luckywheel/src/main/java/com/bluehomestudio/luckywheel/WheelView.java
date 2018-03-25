@@ -25,6 +25,7 @@ public class WheelView extends View {
     private final int DEFAULT_PADDING = 5, DEFAULT_ROTATION_TIME = 9000;
 
     private int mRotationTime = DEFAULT_ROTATION_TIME;
+    private boolean mTextRotationHorizontal = false;
 
     private RectF range = new RectF();
     private Rect textBounds = new Rect();
@@ -103,6 +104,15 @@ public class WheelView extends View {
     }
 
     /**
+     * Function to set the text rotation to be horizontal instead of vertical
+     *
+     * @param horizontal true if text should be drawn horizontal
+     */
+    public void setTextRotationHorizontally(boolean horizontal) {
+        mTextRotationHorizontal = horizontal;
+    }
+
+    /**
      * Function to draw wheel background
      *
      * @param canvas Canvas of draw
@@ -142,7 +152,7 @@ public class WheelView extends View {
     private void drawText(int imgWidth, Canvas canvas, float tempAngle, String text, int color, int size) {
         float centerArcAngle = tempAngle + 360 / mWheelItems.size() / 2;
         float angleInRad = (float) Math.toRadians(centerArcAngle);
-        //calculate x and y
+        //calculate x and y (center in arc)
         int x = (int) (center + radius / 2 / 2 * Math.cos(angleInRad));
         int y = (int) (center + radius / 2 / 2 * Math.sin(angleInRad));
         // update paint
@@ -152,7 +162,15 @@ public class WheelView extends View {
         textPaint.getTextBounds(text, 0, text.length(), textBounds);
         canvas.translate(x, y);
         canvas.rotate(centerArcAngle);
-        canvas.drawText(text, imgWidth / 2, - textBounds.exactCenterY(), textPaint);
+        if (mTextRotationHorizontal) {
+            canvas.translate(imgWidth / 2, 0);
+            canvas.rotate(90);
+            canvas.drawText(text, imgWidth / 2, -textBounds.exactCenterY(), textPaint);
+            canvas.translate(-imgWidth / 2, 0);
+            canvas.rotate(-90);
+        } else {
+            canvas.drawText(text, imgWidth / 2, -textBounds.exactCenterY(), textPaint);
+        }
         canvas.rotate(-centerArcAngle);
         canvas.translate(-x, -y);
     }
@@ -298,6 +316,8 @@ public class WheelView extends View {
 
         float tempAngle = 0;
         float sweepAngle = 360 / mWheelItems.size();
+
+        textPaint.setTextAlign(mTextRotationHorizontal ? Paint.Align.CENTER : Paint.Align.LEFT);
 
         for (int i = 0; i < mWheelItems.size(); i++) {
             archPaint.setColor(mWheelItems.get(i).getColor());
