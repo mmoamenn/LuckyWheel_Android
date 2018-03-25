@@ -18,6 +18,8 @@ import java.util.List;
  */
 
 public class LuckyWheel extends FrameLayout {
+    private boolean mForceSquareLayout = false;
+
     private WheelView wheelView;
     private ImageView arrow;
 
@@ -39,6 +41,19 @@ public class LuckyWheel extends FrameLayout {
         arrow = (ImageView) findViewById(R.id.iv_arrow);
     }
 
+    @Override
+    public void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        if (mForceSquareLayout) {
+            super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+            int width = MeasureSpec.getSize(widthMeasureSpec);
+            int height = MeasureSpec.getSize(heightMeasureSpec);
+            int size = width > height ? height : width;
+            setMeasuredDimension(size, size);
+        }
+        else
+            super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    }
+
     /**
      * Function to add items to wheel items
      *
@@ -53,6 +68,7 @@ public class LuckyWheel extends FrameLayout {
         try {
             int backgroudnColor = typedArray.getColor(R.styleable.LuckyWheel_background_color, Color.GREEN);
             int arrowImage = typedArray.getResourceId(R.styleable.LuckyWheel_arrow_image, R.drawable.arrow);
+            mForceSquareLayout = typedArray.getBoolean(R.styleable.LuckyWheel_square_layout, false);
 
             wheelView.setWheelBackgoundWheel(backgroudnColor);
             arrow.setImageResource(arrowImage);
