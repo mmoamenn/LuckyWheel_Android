@@ -206,6 +206,17 @@ public class WheelView extends View {
     }
 
     /**
+     * Function to rotate wheel to target WITHOUT animation
+     *
+     * @param target       target number
+     */
+    public void rotateWheelToTargetInstantly(int target) {
+        float wheelItemCenter = 270 - getAngleOfIndexTarget(target) + (360 / mWheelItems.size()) / 2;
+        float rotation = (360 * 15) + wheelItemCenter;
+        setRotation(rotation);
+    }
+
+    /**
      * Function to rotate to zero angle
      *
      * @param target       target to reach
@@ -235,6 +246,16 @@ public class WheelView extends View {
 
             }
         });
+    }
+
+    /**
+     * Function to rotate to zero angle WITHOUT animation
+     *
+     * @param target       target to reach
+     */
+    public void rotateWheelToInstantly(final int target) {
+        animate().cancel();
+        rotateWheelToTargetInstantly(target);
     }
 
     /**

@@ -91,6 +91,16 @@ public class LuckyWheel extends FrameLayout {
         wheelView.resetRotationLocationToZeroAngle(number, interpolator);
     }
 
+
+    /**
+     * Function to rotate wheel to degree WITHOUT animation
+     *
+     * @param number Number to rotate
+     */
+    public void rotateWheelToInstantly(int number) {
+        wheelView.rotateWheelToInstantly(number);
+    }
+
     /**
      * Function to set the wheel rotation duration
      *
