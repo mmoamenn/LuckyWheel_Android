@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Rect;
@@ -19,14 +20,13 @@ import java.util.List;
  * Created by mohamed on 22/04/17.
  */
 
-public class WheelView extends View {
-    private final int DEFAULT_PADDING = 5, DEFAULT_ROTATION_TIME = 9000;
-
+final class WheelView extends View {
     private RectF range = new RectF();
-    private Paint archPaint;
+    private Paint archPaint, textPaint;
     private int padding, radius, center, mWheelBackground;
-    private List<WheelItem> mWheelItems;
+    private List <WheelItem> mWheelItems;
     private OnLuckyWheelReachTheTarget mOnLuckyWheelReachTheTarget;
+    private OnRotationListener onRotationListener;
 
     public WheelView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -41,6 +41,12 @@ public class WheelView extends View {
         archPaint = new Paint();
         archPaint.setAntiAlias(true);
         archPaint.setDither(true);
+        //text paint object
+        textPaint = new Paint();
+        textPaint.setColor(Color.WHITE);
+        textPaint.setAntiAlias(true);
+        textPaint.setDither(true);
+        textPaint.setTextSize(25);
         //rect rang of the arc
         range = new RectF(padding, padding, padding + radius, padding + radius);
     }
@@ -78,7 +84,7 @@ public class WheelView extends View {
      *
      * @param wheelItems Wheels model item
      */
-    public void addWheelItems(List<WheelItem> wheelItems) {
+    public void addWheelItems(List <WheelItem> wheelItems) {
         mWheelItems = wheelItems;
         invalidate();
     }
@@ -127,6 +133,7 @@ public class WheelView extends View {
     public void rotateWheelToTarget(int target) {
 
         float wheelItemCenter = 270 - getAngleOfIndexTarget(target) + (360 / mWheelItems.size()) / 2;
+        int DEFAULT_ROTATION_TIME = 9000;
         animate().setInterpolator(new DecelerateInterpolator())
                 .setDuration(DEFAULT_ROTATION_TIME)
                 .rotation((360 * 15) + wheelItemCenter)
@@ -138,8 +145,11 @@ public class WheelView extends View {
 
                     @Override
                     public void onAnimationEnd(Animator animation) {
-                        if (mOnLuckyWheelReachTheTarget != null) {
+                        if ( mOnLuckyWheelReachTheTarget != null ) {
                             mOnLuckyWheelReachTheTarget.onReachTarget();
+                        }
+                        if ( onRotationListener != null ) {
+                            onRotationListener.onFinishRotation();
                         }
                         clearAnimation();
                     }
@@ -212,10 +222,15 @@ public class WheelView extends View {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
         int width = Math.min(getMeasuredWidth(), getMeasuredHeight());
+        int DEFAULT_PADDING = 5;
         padding = getPaddingLeft() == 0 ? DEFAULT_PADDING : getPaddingLeft();
         radius = width - padding * 2;
         center = width / 2;
         setMeasuredDimension(width, width);
 
+    }
+
+    public void setOnRotationListener(OnRotationListener onRotationListener) {
+        this.onRotationListener = onRotationListener;
     }
 }

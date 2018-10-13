@@ -17,30 +17,20 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    private LuckyWheel lw;
+    List<WheelItem> wheelItems ;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        List<WheelItem> wheelItems = new ArrayList<>();
-        wheelItems.add(new WheelItem(Color.LTGRAY, BitmapFactory.decodeResource(getResources(),
-                R.drawable.ic_action_name)));
-        wheelItems.add(new WheelItem(Color.BLUE, BitmapFactory.decodeResource(getResources(),
-                R.drawable.ic_action_name)));
-        wheelItems.add(new WheelItem(Color.BLACK, BitmapFactory.decodeResource(getResources(),
-                R.drawable.ic_action_name)));
-        wheelItems.add(new WheelItem(Color.GRAY, BitmapFactory.decodeResource(getResources(),
-                R.drawable.ic_action_name)));
-        wheelItems.add(new WheelItem(Color.RED, BitmapFactory.decodeResource(getResources(),
-                R.drawable.ic_action_name)));
-        wheelItems.add(new WheelItem(Color.GREEN, BitmapFactory.decodeResource(getResources(),
-                R.drawable.ic_action_name)));
+        generateWheelItems();
 
-
-        final LuckyWheel lw = (LuckyWheel) findViewById(R.id.lwv);
+        lw = (LuckyWheel) findViewById(R.id.lwv);
         lw.addWheelItems(wheelItems);
+        lw.setTarget(3);
 
-        lw.rotateWheelTo(1);
 
         lw.setLuckyWheelReachTheTarget(new OnLuckyWheelReachTheTarget() {
             @Override
@@ -57,5 +47,21 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void generateWheelItems() {
+        wheelItems = new ArrayList<>();
+        wheelItems.add(new WheelItem(Color.LTGRAY, BitmapFactory.decodeResource(getResources(),
+                R.drawable.ic_action_name)));
+        wheelItems.add(new WheelItem(Color.BLUE, BitmapFactory.decodeResource(getResources(),
+                R.drawable.ic_action_name)));
+        wheelItems.add(new WheelItem(Color.BLACK, BitmapFactory.decodeResource(getResources(),
+                R.drawable.ic_action_name)));
+        wheelItems.add(new WheelItem(Color.GRAY, BitmapFactory.decodeResource(getResources(),
+                R.drawable.ic_action_name)));
+        wheelItems.add(new WheelItem(Color.RED, BitmapFactory.decodeResource(getResources(),
+                R.drawable.ic_action_name)));
+        wheelItems.add(new WheelItem(Color.GREEN, BitmapFactory.decodeResource(getResources(),
+                R.drawable.ic_action_name)));
     }
 }
