@@ -8,12 +8,45 @@ import android.graphics.Bitmap;
 
 public class WheelItem {
 
-    public int color;
-    public Bitmap bitmap;
+    private int color;
+    private int textColor;
+    private int textSize;
+    private Bitmap bitmap;
+    private String text;
 
-    public WheelItem(int color, Bitmap bitmap) {
+    public WheelItem(int color) {
         this.color = color;
-        this.bitmap = bitmap;
     }
 
+    public WheelItem withText(String text, int textColor, int textSize) {
+        this.text = text;
+        this.textColor = textColor;
+        this.textSize = textSize;
+        return this;
+    }
+
+    public WheelItem withBitmap(Bitmap bitmap) {
+        this.bitmap = bitmap;
+        return this;
+    }
+
+    protected int getColor() {
+        return color;
+    }
+
+    protected Bitmap getBitmap() {
+        return bitmap;
+    }
+
+    protected String getText() {
+        return text;
+    }
+
+    protected int getTextColor() {
+        return textColor;
+    }
+
+    protected int getTextSize() {
+        return textSize;
+    }
 }
