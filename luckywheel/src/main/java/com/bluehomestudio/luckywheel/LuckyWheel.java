@@ -12,14 +12,13 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
-
 import java.util.List;
 
 /**
  * Created by mohamed on 22/04/17.
  */
 
-public class LuckyWheel extends FrameLayout implements View.OnTouchListener , OnRotationListener {
+public class LuckyWheel extends FrameLayout implements View.OnTouchListener, OnRotationListener {
     private WheelView wheelView;
     private ImageView arrow;
     private int target = -1;
@@ -91,7 +90,7 @@ public class LuckyWheel extends FrameLayout implements View.OnTouchListener , On
      * @param number Number to rotate
      */
     public void rotateWheelTo(int number) {
-        isRotate = true ;
+        isRotate = true;
         wheelView.resetRotationLocationToZeroAngle(number);
     }
 
@@ -101,7 +100,7 @@ public class LuckyWheel extends FrameLayout implements View.OnTouchListener , On
     @Override
     public boolean onTouch(View v, MotionEvent event) {
 
-        if(target <= 0 || isRotate ){
+        if ( target <= 0 || isRotate ) {
             return false;
         }
 
@@ -132,6 +131,6 @@ public class LuckyWheel extends FrameLayout implements View.OnTouchListener , On
 
     @Override
     public void onFinishRotation() {
-        isRotate = false ;
+        isRotate = false;
     }
 }

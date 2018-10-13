@@ -120,7 +120,7 @@ final class WheelView extends View {
         Rect rect = new Rect(x - imgWidth / 2, y - imgWidth / 2, x + imgWidth / 2, y + imgWidth / 2);
         //rotate main bitmap
         Matrix matrix = new Matrix();
-        matrix.postRotate(45);
+        matrix.postRotate(angle * 2 );
         Bitmap rotatedBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
         canvas.drawBitmap(rotatedBitmap, null, rect, null);
     }
