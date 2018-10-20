@@ -7,10 +7,12 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 
@@ -46,7 +48,7 @@ final class WheelView extends View {
         textPaint.setColor(Color.WHITE);
         textPaint.setAntiAlias(true);
         textPaint.setDither(true);
-        textPaint.setTextSize(25);
+        textPaint.setTextSize(30);
         //rect rang of the arc
         range = new RectF(padding, padding, padding + radius, padding + radius);
     }
@@ -120,9 +122,30 @@ final class WheelView extends View {
         Rect rect = new Rect(x - imgWidth / 2, y - imgWidth / 2, x + imgWidth / 2, y + imgWidth / 2);
         //rotate main bitmap
         Matrix matrix = new Matrix();
-        matrix.postRotate(angle * 2 );
+        matrix.postRotate(45);
         Bitmap rotatedBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
         canvas.drawBitmap(rotatedBitmap, null, rect, null);
+    }
+
+
+    /**
+     * Function to draw text below image
+     *
+     * @param canvas     Canvas to draw
+     * @param tempAngle  Temporary angle
+     * @param sweepAngle current index angle
+     * @param text       string to show
+     */
+    private void drawText(Canvas canvas, float tempAngle, float sweepAngle, String text) {
+        Path path = new Path();
+        path.addArc(range, tempAngle, sweepAngle);
+
+        float textWidth = textPaint.measureText(text);
+
+        int hOffset = (int) (radius * Math.PI / mWheelItems.size() / 2 - textWidth / 2);
+        int vOffset = radius / 2 / 3;
+
+        canvas.drawTextOnPath(text, path, hOffset, vOffset, textPaint);
     }
 
     /**
@@ -212,6 +235,7 @@ final class WheelView extends View {
             archPaint.setColor(mWheelItems.get(i).color);
             canvas.drawArc(range, tempAngle, sweepAngle, true, archPaint);
             drawImage(canvas, tempAngle, mWheelItems.get(i).bitmap);
+            drawText(canvas, tempAngle, sweepAngle, mWheelItems.get(i).text == null ? "" : mWheelItems.get(i).text);
             tempAngle += sweepAngle;
         }
 

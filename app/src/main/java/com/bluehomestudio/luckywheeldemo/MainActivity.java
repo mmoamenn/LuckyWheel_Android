@@ -52,16 +52,16 @@ public class MainActivity extends AppCompatActivity {
     private void generateWheelItems() {
         wheelItems = new ArrayList<>();
         wheelItems.add(new WheelItem(Color.LTGRAY, BitmapFactory.decodeResource(getResources(),
-                R.drawable.ic_action_name)));
+                R.drawable.ic_action_name) , "100 $"));
         wheelItems.add(new WheelItem(Color.BLUE, BitmapFactory.decodeResource(getResources(),
-                R.drawable.ic_action_name)));
+                R.drawable.ic_action_name) , "0 $"));
         wheelItems.add(new WheelItem(Color.BLACK, BitmapFactory.decodeResource(getResources(),
-                R.drawable.ic_action_name)));
+                R.drawable.ic_action_name), "30 $"));
         wheelItems.add(new WheelItem(Color.GRAY, BitmapFactory.decodeResource(getResources(),
-                R.drawable.ic_action_name)));
+                R.drawable.ic_action_name), "6000 $"));
         wheelItems.add(new WheelItem(Color.RED, BitmapFactory.decodeResource(getResources(),
-                R.drawable.ic_action_name)));
+                R.drawable.ic_action_name), "9 $"));
         wheelItems.add(new WheelItem(Color.GREEN, BitmapFactory.decodeResource(getResources(),
-                R.drawable.ic_action_name)));
+                R.drawable.ic_action_name), "20 $"));
     }
 }
