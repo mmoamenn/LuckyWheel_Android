@@ -251,7 +251,6 @@ final class WheelView extends View {
         radius = width - padding * 2;
         center = width / 2;
         setMeasuredDimension(width, width);
-
     }
 
     public void setOnRotationListener(OnRotationListener onRotationListener) {

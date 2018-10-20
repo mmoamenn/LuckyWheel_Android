@@ -100,7 +100,7 @@ public class LuckyWheel extends FrameLayout implements View.OnTouchListener, OnR
     @Override
     public boolean onTouch(View v, MotionEvent event) {
 
-        if ( target <= 0 || isRotate ) {
+        if ( target < 0 || isRotate ) {
             return false;
         }
 
