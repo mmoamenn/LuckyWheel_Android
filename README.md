@@ -1,6 +1,6 @@
 # LuckyWheel Android
 
-Android custom component that displays a lucky wheel. it features easy customize of colors , text , addition of items and it's very trivial to integrate in your application.
+Android custom component that displays a lucky wheel. it features easy customize of colors , text and addition of items and it's very trivial to integrate in your application.
  
  **Sample**
  
