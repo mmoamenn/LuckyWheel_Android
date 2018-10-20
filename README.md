@@ -4,7 +4,7 @@ Android custom component that displays a lucky wheel. it features easy customize
  
  **Sample**
  
- ![Lucky wheel](https://github.com/mmoamenn/LuckyWheel_Android/blob/master/samples/pic_sample.png). 
+ ![Lucky wheel](https://github.com/mmoamenn/LuckyWheel_Android/blob/master/samples/pic_sample_mini.png). 
    
  **Installing**
  
