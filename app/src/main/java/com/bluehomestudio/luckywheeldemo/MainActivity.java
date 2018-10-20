@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
         lw = (LuckyWheel) findViewById(R.id.lwv);
         lw.addWheelItems(wheelItems);
-        lw.setTarget(5);
+        lw.setTarget(3);
 
 
         lw.setLuckyWheelReachTheTarget(new OnLuckyWheelReachTheTarget() {
