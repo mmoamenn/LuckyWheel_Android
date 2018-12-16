@@ -80,4 +80,37 @@ public class LuckyWheel extends FrameLayout {
         wheelView.resetRotationLocationToZeroAngle(number);
     }
 
+    /**
+     * Time that the rotation will take until completes
+     * @return
+     */
+    public int getRotationTime() {
+        return wheelView.getRotationTime();
+    }
+
+    /**
+     * How long would the spinning take
+     * Default is 9000ms
+     * @param rotationTimeInMs
+     */
+    public void setRotationTime(int rotationTimeInMs) {
+        wheelView.setRotationTime(rotationTimeInMs);
+    }
+
+    /**
+     * Return number of rotations that will animate
+     * @return
+     */
+    public int getRotations() {
+        return wheelView.getRotations();
+    }
+
+    /**
+     * Determines how many rotations would the wheel do.
+     * Default is 15
+     * @param rotations
+     */
+    public void setRotations(int rotations) {
+        wheelView.setRotations(rotations);
+    }
 }

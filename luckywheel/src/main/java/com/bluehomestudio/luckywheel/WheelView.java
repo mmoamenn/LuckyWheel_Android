@@ -20,13 +20,17 @@ import java.util.List;
  */
 
 public class WheelView extends View {
-    private final int DEFAULT_PADDING = 5, DEFAULT_ROTATION_TIME = 9000;
+    private final int DEFAULT_PADDING = 5,
+            DEFAULT_ROTATION_TIME = 9000,
+            DEFAULT_ROTATIONS = 15;
 
     private RectF range = new RectF();
     private Paint archPaint;
     private int padding, radius, center, mWheelBackground;
     private List<WheelItem> mWheelItems;
     private OnLuckyWheelReachTheTarget mOnLuckyWheelReachTheTarget;
+    private int rotationTime = DEFAULT_ROTATION_TIME;
+    private int rotations = DEFAULT_ROTATIONS;
 
     public WheelView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -128,8 +132,8 @@ public class WheelView extends View {
 
         float wheelItemCenter = 270 - getAngleOfIndexTarget(target) + (360 / mWheelItems.size()) / 2;
         animate().setInterpolator(new DecelerateInterpolator())
-                .setDuration(DEFAULT_ROTATION_TIME)
-                .rotation((360 * 15) + wheelItemCenter)
+                .setDuration(rotationTime)
+                .rotation((360 * rotations) + wheelItemCenter)
                 .setListener(new Animator.AnimatorListener() {
                     @Override
                     public void onAnimationStart(Animator animation) {
@@ -217,5 +221,21 @@ public class WheelView extends View {
         center = width / 2;
         setMeasuredDimension(width, width);
 
+    }
+
+    public int getRotations() {
+        return rotations;
+    }
+
+    public void setRotations(int rotations) {
+        this.rotations = rotations;
+    }
+
+    public int getRotationTime() {
+        return rotationTime;
+    }
+
+    public void setRotationTime(int rotationTimeInMs) {
+        this.rotationTime = rotationTimeInMs;
     }
 }
