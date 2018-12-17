@@ -27,7 +27,7 @@ public class WheelView extends View {
 
     private RectF range = new RectF();
     private Paint archPaint;
-    private int padding, radius, center, mWheelBackground;
+    private int padding, radius, diameter, center, mWheelBackground;
     private List<WheelItem> mWheelItems;
     private OnLuckyWheelReachTheTarget mOnLuckyWheelReachTheTarget;
     private int rotationTime = DEFAULT_ROTATION_TIME;
@@ -118,11 +118,11 @@ public class WheelView extends View {
      */
     private void drawImage(Canvas canvas, float tempAngle, Bitmap bitmap) {
         //get every arc img width and angle
-        int imgWidth = radius / mWheelItems.size();
+        int imgWidth = diameter / mWheelItems.size();
         float angle = (float) ((tempAngle + 360 / mWheelItems.size() / 2) * Math.PI / 180);
         //calculate x and y
-        int x = (int) (center + radius / 2 / 2 * Math.cos(angle));
-        int y = (int) (center + radius / 2 / 2 * Math.sin(angle));
+        int x = (int) (center + radius / 2 * Math.cos(angle));
+        int y = (int) (center + radius / 2 * Math.sin(angle));
         //create arc to draw
         Rect rect = new Rect(x - imgWidth / 2, y - imgWidth / 2, x + imgWidth / 2, y + imgWidth / 2);
         //rotate main bitmap
@@ -229,6 +229,7 @@ public class WheelView extends View {
 
         padding = getPaddingLeft() == 0 ? DEFAULT_PADDING : getPaddingLeft();
         radius = width / 2 - padding * 2;
+        diameter = 2 * radius;
         center = width / 2;
 
         setMeasuredDimension(
