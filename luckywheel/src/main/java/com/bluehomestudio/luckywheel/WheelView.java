@@ -47,7 +47,7 @@ public class WheelView extends View {
         archPaint.setAntiAlias(true);
         archPaint.setDither(true);
         //rect rang of the arc
-        range = new RectF(padding, padding, padding + radius, padding + radius);
+        range = new RectF(center - radius, center - radius, center + radius, center + radius);
     }
 
     /**
@@ -222,13 +222,18 @@ public class WheelView extends View {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        int sizeWidth = MeasureSpec.getSize(widthMeasureSpec);
+        int sizeHeight = MeasureSpec.getSize(heightMeasureSpec);
 
-        int width = Math.min(getMeasuredWidth(), getMeasuredHeight());
+        int width = Math.min(sizeWidth, sizeHeight);
+
         padding = getPaddingLeft() == 0 ? DEFAULT_PADDING : getPaddingLeft();
-        radius = width - padding * 2;
+        radius = width / 2 - padding * 2;
         center = width / 2;
-        setMeasuredDimension(width, width);
+
+        setMeasuredDimension(
+                MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY),
+                MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY));
     }
 
     public int getRotations() {
