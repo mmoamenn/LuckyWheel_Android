@@ -17,6 +17,7 @@ import java.util.List;
  */
 
 public class LuckyWheel extends FrameLayout {
+
     private WheelView wheelView;
     private ImageView arrow;
 
@@ -50,11 +51,15 @@ public class LuckyWheel extends FrameLayout {
     public void applyAttribute(AttributeSet attrs) {
         TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.LuckyWheel, 0, 0);
         try {
-            int backgroudnColor = typedArray.getColor(R.styleable.LuckyWheel_background_color, Color.GREEN);
+            int backgroundColor = typedArray.getColor(R.styleable.LuckyWheel_background_color, Color.GREEN);
             int arrowImage = typedArray.getResourceId(R.styleable.LuckyWheel_arrow_image, R.drawable.arrow);
+            int rotationTime = typedArray.getResourceId(R.styleable.LuckyWheel_rotation_time, WheelView.DEFAULT_ROTATION_TIME);
+            int rotations = typedArray.getResourceId(R.styleable.LuckyWheel_rotations, WheelView.DEFAULT_ROTATIONS);
 
-            wheelView.setWheelBackgoundWheel(backgroudnColor);
+            wheelView.setWheelBackgroundWheel(backgroundColor);
             arrow.setImageResource(arrowImage);
+            wheelView.setRotationTime(rotationTime);
+            wheelView.setRotations(rotations);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -81,34 +86,57 @@ public class LuckyWheel extends FrameLayout {
     }
 
     /**
-     * Time that the rotation will take until completes
-     * @return
+     * Function to retrieve wheel background color
+     * @return wheel background color
+     */
+    public int getWheelBackgroundColor() {
+        return wheelView.getWheelBackgroundColor();
+    }
+
+    /**
+     * Function to set wheel background
+     *
+     * @param wheelBackground Wheel background color
+     */
+    public void setWheelBackgoundColor(int wheelBackground) {
+        wheelView.setWheelBackgroundWheel(wheelBackground);
+    }
+
+    /**
+     * Function to set the arrow image
+     * @param resId id of the arrow resource
+     */
+    public void setArrowResource(int resId) {
+        arrow.setImageResource(resId);
+    }
+
+    /**
+     * Function to retrieve the time the spinning will take until completes
+     * @return time in ms
      */
     public int getRotationTime() {
         return wheelView.getRotationTime();
     }
 
     /**
-     * How long would the spinning take
-     * Default is 9000ms
-     * @param rotationTimeInMs
+     * Function to set how long the spinning will take
+     * @param rotationTime time of rotation in ms
      */
-    public void setRotationTime(int rotationTimeInMs) {
-        wheelView.setRotationTime(rotationTimeInMs);
+    public void setRotationTime(int rotationTime) {
+        wheelView.setRotationTime(rotationTime);
     }
 
     /**
-     * Return number of rotations that will animate
-     * @return
+     * Function to retrieve the number of rotations that will do on each animation
+     * @return number of rotations
      */
     public int getRotations() {
         return wheelView.getRotations();
     }
 
     /**
-     * Determines how many rotations would the wheel do.
-     * Default is 15
-     * @param rotations
+     * Function to set the number of rotations that the wheel will do on each animation
+     * @param rotations number of rotations
      */
     public void setRotations(int rotations) {
         wheelView.setRotations(rotations);

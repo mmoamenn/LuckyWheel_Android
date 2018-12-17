@@ -20,9 +20,10 @@ import java.util.List;
  */
 
 public class WheelView extends View {
-    private final int DEFAULT_PADDING = 5,
-            DEFAULT_ROTATION_TIME = 9000,
-            DEFAULT_ROTATIONS = 15;
+    public static final int DEFAULT_ROTATION_TIME = 9000,
+                     DEFAULT_ROTATIONS = 15;
+
+    private static final int DEFAULT_PADDING = 5;
 
     private RectF range = new RectF();
     private Paint archPaint;
@@ -59,11 +60,19 @@ public class WheelView extends View {
     }
 
     /**
+     * Function to retrieve wheel background color
+     * @return color of the wheel background
+     */
+    public int getWheelBackgroundColor() {
+        return mWheelBackground;
+    }
+
+    /**
      * Function to set wheel background
      *
      * @param wheelBackground Wheel background color
      */
-    public void setWheelBackgoundWheel(int wheelBackground) {
+    public void setWheelBackgroundWheel(int wheelBackground) {
         mWheelBackground = wheelBackground;
         invalidate();
     }
@@ -220,7 +229,6 @@ public class WheelView extends View {
         radius = width - padding * 2;
         center = width / 2;
         setMeasuredDimension(width, width);
-
     }
 
     public int getRotations() {

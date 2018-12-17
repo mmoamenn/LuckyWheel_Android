@@ -5,6 +5,8 @@
 
         <attr name="background_color" format="color"/>
         <attr name="arrow_image" format="reference"/>
+        <attr name="rotation_time" format="integer"/>
+        <attr name="rotations" format="integer"/>
 
     </declare-styleable>
 

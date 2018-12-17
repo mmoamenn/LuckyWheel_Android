@@ -5,11 +5,9 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.bluehomestudio.luckywheel.LuckyWheel;
 import com.bluehomestudio.luckywheel.OnLuckyWheelReachTheTarget;
 import com.bluehomestudio.luckywheel.WheelItem;
@@ -42,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
         final LuckyWheel lw = (LuckyWheel) findViewById(R.id.lwv);
         lw.addWheelItems(wheelItems);
-
+        lw.setWheelBackgoundColor(Color.RED);
         lw.rotateWheelTo(1);
 
         lw.setLuckyWheelReachTheTarget(new OnLuckyWheelReachTheTarget() {
@@ -52,51 +50,46 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button start = (Button) findViewById(R.id.start);
-        start.setOnClickListener(new View.OnClickListener() {
+        TextView durationValue = (TextView) findViewById(R.id.durationValue);
+        final SeekBar durationBar = ((SeekBar) findViewById(R.id.duration_bar));
+        durationBar.setOnSeekBarChangeListener(new SynchTextView(durationValue));
+
+        TextView rotationValue = (TextView) findViewById(R.id.rotationValue);
+        final SeekBar rotationBar = ((SeekBar) findViewById(R.id.rotations_bar));
+        rotationBar.setOnSeekBarChangeListener(new SynchTextView(rotationValue));
+
+        findViewById(R.id.start).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                lw.setRotationTime(durationBar.getProgress());
+                lw.setRotations(rotationBar.getProgress());
                 lw.rotateWheelTo(new Random().nextInt(wheelItems.size()));
             }
         });
-
-        final TextView durationValue = (TextView) findViewById(R.id.durationValue);
-        ((SeekBar) findViewById(R.id.duration_bar)).setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                durationValue.setText(String.valueOf(progress));
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-                // ignore
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                durationValue.setText(String.valueOf(seekBar.getProgress()));
-                lw.setRotationTime(seekBar.getProgress());
-            }
-        });
-
-        final TextView rotationValue = (TextView) findViewById(R.id.rotationValue);
-        ((SeekBar) findViewById(R.id.rotations_bar)).setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                rotationValue.setText(String.valueOf(progress));
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-                // ignore
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                rotationValue.setText(String.valueOf(seekBar.getProgress()));
-                lw.setRotations(seekBar.getProgress());
-            }
-        });
-
     }
+
+    private static class SynchTextView implements SeekBar.OnSeekBarChangeListener {
+
+        private final TextView textView;
+
+        private SynchTextView(TextView textView) {
+            this.textView = textView;
+        }
+
+        @Override
+        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+            textView.setText(String.valueOf(seekBar.getProgress()));
+        }
+
+        @Override
+        public void onStartTrackingTouch(SeekBar seekBar) {
+            // do nothing
+        }
+
+        @Override
+        public void onStopTrackingTouch(SeekBar seekBar) {
+            textView.setText(String.valueOf(seekBar.getProgress()));
+        }
+    }
+
 }

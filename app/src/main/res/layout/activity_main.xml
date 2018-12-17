@@ -10,14 +10,24 @@
 
     <com.bluehomestudio.luckywheel.LuckyWheel
         android:id="@+id/lwv"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginBottom="8dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
         LuckyWheel:background_color="@color/colorPrimary"
-        LuckyWheel:layout_constraintBottom_toTopOf="@+id/rotationLabel"
+        LuckyWheel:layout_constraintBottom_toTopOf="@+id/rotations_bar"
+        LuckyWheel:layout_constraintEnd_toEndOf="parent"
         LuckyWheel:layout_constraintLeft_toLeftOf="parent"
         LuckyWheel:layout_constraintRight_toRightOf="parent"
-        LuckyWheel:layout_constraintTop_toTopOf="parent" />
+        LuckyWheel:layout_constraintStart_toStartOf="parent"
+        LuckyWheel:layout_constraintTop_toTopOf="parent"
+        LuckyWheel:layout_constraintVertical_bias="0.0"
+        LuckyWheel:rotation_time="5000"
+        LuckyWheel:rotations="3" />
 
     <Button
         android:id="@+id/start"
@@ -49,22 +59,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
         android:text="Rotation"
         LuckyWheel:layout_constraintBottom_toTopOf="@+id/durationLabel"
-        LuckyWheel:layout_constraintStart_toStartOf="parent" />
+        LuckyWheel:layout_constraintStart_toStartOf="@+id/durationLabel" />
 
     <TextView
         android:id="@+id/durationLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
         android:text="Duration"
         LuckyWheel:layout_constraintBottom_toTopOf="@+id/start"
-        LuckyWheel:layout_constraintStart_toStartOf="parent" />
+        LuckyWheel:layout_constraintStart_toStartOf="@+id/start" />
 
     <SeekBar
         android:id="@+id/duration_bar"
@@ -86,23 +92,19 @@
 
     <TextView
         android:id="@+id/rotationValue"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
         android:text="15"
-        LuckyWheel:layout_constraintEnd_toEndOf="parent"
+        LuckyWheel:layout_constraintEnd_toEndOf="@+id/durationValue"
+        LuckyWheel:layout_constraintStart_toStartOf="@+id/durationValue"
         LuckyWheel:layout_constraintTop_toTopOf="@+id/rotationLabel" />
 
     <TextView
         android:id="@+id/durationValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="-10dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
         android:text="9000"
-        LuckyWheel:layout_constraintEnd_toEndOf="parent"
+        LuckyWheel:layout_constraintEnd_toEndOf="@+id/start"
         LuckyWheel:layout_constraintTop_toTopOf="@+id/duration_bar" />
 
 </android.support.constraint.ConstraintLayout>
