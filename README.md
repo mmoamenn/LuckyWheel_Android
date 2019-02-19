@@ -71,7 +71,7 @@ wheelItems.add(new WheelItem(Color.BLACK, BitmapFactory.decodeResource(getResour
                  R.drawable.ic_action_name) , "text 3"));
                  
 wheelItems.add(new WheelItem(Color.GRAY, BitmapFactory.decodeResource(getResources(),
-                 R.drawable.ic_action_name) , "text 4"));`
+                 R.drawable.ic_action_name) , "text 4"));
  ```
  
  * Add sections to wheel  
