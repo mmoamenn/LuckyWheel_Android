@@ -25,7 +25,7 @@ import java.util.List;
 final class WheelView extends View {
     private RectF range = new RectF();
     private Paint archPaint, textPaint;
-    private int padding, radius, center, mWheelBackground;
+    private int padding, radius, center, mWheelBackground, mImagePadding;
     private List <WheelItem> mWheelItems;
     private OnLuckyWheelReachTheTarget mOnLuckyWheelReachTheTarget;
     private OnRotationListener onRotationListener;
@@ -72,6 +72,11 @@ final class WheelView extends View {
         invalidate();
     }
 
+    public void setItemsImagePadding(int imagePadding){
+        mImagePadding = imagePadding;
+        invalidate();
+    }
+
     /**
      * Function to set wheel listener
      *
@@ -113,7 +118,7 @@ final class WheelView extends View {
      */
     private void drawImage(Canvas canvas, float tempAngle, Bitmap bitmap) {
         //get every arc img width and angle
-        int imgWidth = radius / mWheelItems.size();
+        int imgWidth = (radius / mWheelItems.size()) - mImagePadding;
         float angle = (float) ((tempAngle + 360 / mWheelItems.size() / 2) * Math.PI / 180);
         //calculate x and y
         int x = (int) (center + radius / 2 / 2 * Math.cos(angle));
@@ -122,8 +127,8 @@ final class WheelView extends View {
         Rect rect = new Rect(x - imgWidth / 2, y - imgWidth / 2, x + imgWidth / 2, y + imgWidth / 2);
         //rotate main bitmap
         Matrix matrix = new Matrix();
-        matrix.postRotate(45);
-        Bitmap rotatedBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+        matrix.postRotate(0);
+        Bitmap rotatedBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth() , bitmap.getHeight(), matrix, true);
         canvas.drawBitmap(rotatedBitmap, null, rect, null);
     }
 
@@ -139,12 +144,9 @@ final class WheelView extends View {
     private void drawText(Canvas canvas, float tempAngle, float sweepAngle, String text) {
         Path path = new Path();
         path.addArc(range, tempAngle, sweepAngle);
-
         float textWidth = textPaint.measureText(text);
-
-        int hOffset = (int) (radius * Math.PI / mWheelItems.size() / 2 - textWidth / 2);
-        int vOffset = radius / 2 / 3;
-
+        int hOffset = (int) (radius * Math.PI / mWheelItems.size() / 2 - textWidth / 2) ;
+        int vOffset = (radius / 2 / 3) - 3;
         canvas.drawTextOnPath(text, path, hOffset, vOffset, textPaint);
     }
 

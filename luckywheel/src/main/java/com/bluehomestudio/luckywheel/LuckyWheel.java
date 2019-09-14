@@ -39,9 +39,9 @@ public class LuckyWheel extends FrameLayout implements View.OnTouchListener, OnR
     private void initComponent() {
         inflate(getContext(), R.layout.lucky_wheel_layout, this);
         setOnTouchListener(this);
-        wheelView = (WheelView) findViewById(R.id.wv_main_wheel);
+        wheelView = findViewById(R.id.wv_main_wheel);
         wheelView.setOnRotationListener(this);
-        arrow = (ImageView) findViewById(R.id.iv_arrow);
+        arrow = findViewById(R.id.iv_arrow);
     }
 
     /**
@@ -56,12 +56,12 @@ public class LuckyWheel extends FrameLayout implements View.OnTouchListener, OnR
     public void applyAttribute(AttributeSet attrs) {
         TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.LuckyWheel, 0, 0);
         try {
-            int backgroudnColor = typedArray.getColor(R.styleable.LuckyWheel_background_color, Color.GREEN);
+            int backgroundColor = typedArray.getColor(R.styleable.LuckyWheel_background_color, Color.GREEN);
             int arrowImage = typedArray.getResourceId(R.styleable.LuckyWheel_arrow_image, R.drawable.arrow);
-
-            wheelView.setWheelBackgoundWheel(backgroudnColor);
+            int imagePadding = typedArray.getDimensionPixelSize(R.styleable.LuckyWheel_image_padding , 10);
+            wheelView.setWheelBackgoundWheel(backgroundColor);
+            wheelView.setItemsImagePadding(imagePadding);
             arrow.setImageResource(arrowImage);
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -117,7 +117,6 @@ public class LuckyWheel extends FrameLayout implements View.OnTouchListener, OnR
                 if ( Math.abs(dx) > Math.abs(dy) ) {
                     if ( dx < 0 && Math.abs(dx) > SWIPE_DISTANCE_THRESHOLD )
                         rotateWheelTo(target);
-
                 } else {
                     if ( dy > 0 && Math.abs(dy) > SWIPE_DISTANCE_THRESHOLD )
                         rotateWheelTo(target);

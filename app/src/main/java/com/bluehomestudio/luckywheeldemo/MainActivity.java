@@ -27,9 +27,9 @@ public class MainActivity extends AppCompatActivity {
 
         generateWheelItems();
 
-        lw = (LuckyWheel) findViewById(R.id.lwv);
+        lw = findViewById(R.id.lwv);
         lw.addWheelItems(wheelItems);
-        lw.setTarget(3);
+        lw.setTarget(1);
 
 
         lw.setLuckyWheelReachTheTarget(new OnLuckyWheelReachTheTarget() {
@@ -39,11 +39,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button start = (Button) findViewById(R.id.start);
+        Button start = findViewById(R.id.start);
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                lw.rotateWheelTo(4);
+                lw.rotateWheelTo(1);
             }
         });
 

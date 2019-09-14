@@ -6,7 +6,7 @@
         <attr name="background_color" format="color"/>
         <attr name="arrow_image" format="reference"/>
         <attr name="square_layout" format="boolean"/>
-
+        <attr name="image_padding" format="dimension"/>
     </declare-styleable>
 
 </resources>
