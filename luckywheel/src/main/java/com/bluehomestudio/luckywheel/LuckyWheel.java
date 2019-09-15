@@ -58,7 +58,7 @@ public class LuckyWheel extends FrameLayout implements View.OnTouchListener, OnR
         try {
             int backgroundColor = typedArray.getColor(R.styleable.LuckyWheel_background_color, Color.GREEN);
             int arrowImage = typedArray.getResourceId(R.styleable.LuckyWheel_arrow_image, R.drawable.arrow);
-            int imagePadding = typedArray.getDimensionPixelSize(R.styleable.LuckyWheel_image_padding , 10);
+            int imagePadding = typedArray.getDimensionPixelSize(R.styleable.LuckyWheel_image_padding , 0);
             wheelView.setWheelBackgoundWheel(backgroundColor);
             wheelView.setItemsImagePadding(imagePadding);
             arrow.setImageResource(arrowImage);
