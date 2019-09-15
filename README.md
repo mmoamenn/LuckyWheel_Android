@@ -1,7 +1,13 @@
 # LuckyWheel Android
 
 Android custom component that displays a lucky wheel. it features easy customize of colors , text and addition of items and it's very trivial to integrate in your application.
- 
+
+# What's new in 0.2.0
+
+- Support AndroidX
+- Item Image padding attribute 
+- Enhancements 
+
  **Sample**
  
  ![Lucky wheel](https://github.com/mmoamenn/LuckyWheel_Android/blob/master/samples/pic_sample_mini.png). 
@@ -23,7 +29,7 @@ Android custom component that displays a lucky wheel. it features easy customize
  
   ```groovy
   dependencies {
- 		compile 'com.github.mmoamenn:LuckyWheel_Android:0.1.2'
+ 		implementation 'com.github.mmoamenn:LuckyWheel_Android:0.2.0'
  	}
   ```
  	
@@ -51,6 +57,11 @@ LuckyWheel:background_color
  
  ```xml
 LuckyWheel:arrow_image
+```
+ _Change item image padding_ 
+
+ ```xml
+LuckyWheel:image_padding
 ```
  
  **JAVA**
@@ -102,3 +113,7 @@ wheelItems.add(new WheelItem(Color.GRAY, BitmapFactory.decodeResource(getResourc
              }
          });
  ```
+ 
+ 
+# Note
+Last version before support AndroidX ```com.github.mmoamenn:LuckyWheel_Android:0.1.2```
