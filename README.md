@@ -29,7 +29,7 @@ Android custom component that displays a lucky wheel. it features easy customize
  
   ```groovy
   dependencies {
- 		implementation 'com.github.mmoamenn:LuckyWheel_Android:0.2.0'
+ 		implementation 'com.github.mmoamenn:LuckyWheel_Android:0.2.1'
  	}
   ```
  	
