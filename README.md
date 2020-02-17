@@ -4,14 +4,12 @@ Android custom component that displays a lucky wheel. it features easy customize
 
 # What's new in 0.2.0
 
-- Support AndroidX
-- Item Image padding attribute 
-- Enhancements 
+- Fix the image rotation issue
 
  **Sample**
  
- ![Lucky wheel](https://github.com/mmoamenn/LuckyWheel_Android/blob/master/samples/pic_sample_mini.png). 
-   
+ ![Lucky wheel](https://github.com/mmoamenn/LuckyWheel_Android/blob/master/samples/color_image.png). 
+    
  **Installing**
  
  Add it in your root build.gradle at the end of repositories:
