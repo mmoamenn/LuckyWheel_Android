@@ -62,54 +62,62 @@ LuckyWheel:arrow_image
 LuckyWheel:image_padding
 ```
  
- **JAVA**
+ **Kotlin**
  
  Functions to use after reference the Lucky wheel
  
  * Create wheel sections 
  
- ```java
- List<WheelItem> wheelItems = new ArrayList<>();
- wheelItems.add(new WheelItem(Color.LTGRAY, BitmapFactory.decodeResource(getResources(),
-                 R.drawable.ic_action_name) , "text 1"));
-                 
- wheelItems.add(new WheelItem(Color.BLUE, BitmapFactory.decodeResource(getResources(),
-                 R.drawable.ic_action_name) , "text 2"));
-                 
-wheelItems.add(new WheelItem(Color.BLACK, BitmapFactory.decodeResource(getResources(),
-                 R.drawable.ic_action_name) , "text 3"));
-                 
-wheelItems.add(new WheelItem(Color.GRAY, BitmapFactory.decodeResource(getResources(),
-                 R.drawable.ic_action_name) , "text 4"));`
+ ```kotlin
+ val wheelItems: MutableList<WheelItem> = ArrayList()
+
+ wheelItems.add(WheelItem(Color.LTGRAY,
+ BitmapFactory.decodeResource(resources, R.drawable.ic_action_name),
+ "text 1"))
+ 
+ wheelItems.add(WheelItem(Color.BLUE,
+ BitmapFactory.decodeResource(resources, R.drawable.ic_action_name),
+ "text 2"))
+ 
+ wheelItems.add(WheelItem(Color.BLACK,
+ BitmapFactory.decodeResource(resources, R.drawable.ic_action_name),
+ "text 3"))
+ 
+ wheelItems.add(WheelItem(Color.GRAY,
+ BitmapFactory.decodeResource(resources, R.drawable.ic_action_name)
+ ,"text 4"))
+ 
+ wheelItems.add(WheelItem(Color.RED,
+ BitmapFactory.decodeResource(resources, R.drawable.ic_action_name),
+ "text 5"))
+ 
+ wheelItems.add(WheelItem(Color.BLACK,
+ BitmapFactory.decodeResource(resources, R.drawable.ic_action_name),
+ "text 6"))
+ 
  ```
  
  * Add sections to wheel  
  
- ```java
-  addWheelItems(wheelItems);
+ ```kotlin
+  addWheelItems(wheelItems)
  ``` 
  * Rotate by touch -- set target before user touch wheel 
  
- ```java
-  setTarget(3);
+ ```kotlin
+  setTarget(3)
  ``` 
  * Rotate to section -- not need if you will use touch 
  
- ```java
-  rotateWheelTo(2);
+ ```koltin
+  rotateWheelTo(2)
  ``` 
  * On target reach listener
  
- ```java
-  setLuckyWheelReachTheTarget(new OnLuckyWheelReachTheTarget() {
-             
-             @Override
-             public void onReachTarget() {
-             
-                 // target reached do operation her    
-             
-             }
-         });
+ ```koltin
+  lwv.setLuckyWheelReachTheTarget {
+            
+        }
  ```
  
  
