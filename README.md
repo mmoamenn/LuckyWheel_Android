@@ -116,8 +116,8 @@ LuckyWheel:image_padding
  
  ```koltin
   lwv.setLuckyWheelReachTheTarget {
-            
-        }
+  
+  }
  ```
  
  
