@@ -12,7 +12,7 @@ public class WheelItem {
     public Bitmap bitmap;
     public String text;
 
-    public WheelItem(int color, Bitmap bitmap) {
+        public WheelItem(int color, Bitmap bitmap) {
         this.color = color;
         this.bitmap = bitmap;
     }

@@ -11,6 +11,7 @@ import android.graphics.Path;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 
@@ -26,7 +27,7 @@ final class WheelView extends View {
     private RectF range = new RectF();
     private Paint archPaint, textPaint;
     private int padding, radius, center, mWheelBackground, mImagePadding;
-    private List <WheelItem> mWheelItems;
+    private List<WheelItem> mWheelItems;
     private OnLuckyWheelReachTheTarget mOnLuckyWheelReachTheTarget;
     private OnRotationListener onRotationListener;
 
@@ -72,7 +73,7 @@ final class WheelView extends View {
         invalidate();
     }
 
-    public void setItemsImagePadding(int imagePadding){
+    public void setItemsImagePadding(int imagePadding) {
         mImagePadding = imagePadding;
         invalidate();
     }
@@ -91,7 +92,7 @@ final class WheelView extends View {
      *
      * @param wheelItems Wheels model item
      */
-    public void addWheelItems(List <WheelItem> wheelItems) {
+    public void addWheelItems(List<WheelItem> wheelItems) {
         mWheelItems = wheelItems;
         invalidate();
     }
@@ -126,10 +127,15 @@ final class WheelView extends View {
         //create arc to draw
         Rect rect = new Rect(x - imgWidth / 2, y - imgWidth / 2, x + imgWidth / 2, y + imgWidth / 2);
         //rotate main bitmap
+        float px = rect.exactCenterX();
+        float py = rect.exactCenterY();
         Matrix matrix = new Matrix();
-        matrix.postRotate(0);
-        Bitmap rotatedBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth() , bitmap.getHeight(), matrix, true);
-        canvas.drawBitmap(rotatedBitmap, null, rect, null);
+        matrix.postTranslate(-bitmap.getWidth() / 2, -bitmap.getHeight() / 2);
+        matrix.postRotate(tempAngle + 120);
+        matrix.postTranslate(px, py);
+        canvas.drawBitmap(bitmap, matrix, new Paint( Paint.ANTI_ALIAS_FLAG | Paint.DITHER_FLAG | Paint.FILTER_BITMAP_FLAG ));
+        Log.d("sadsdsddssd" , bitmap.getWidth() + " : "+bitmap.getHeight());
+        matrix.reset();
     }
 
 
@@ -145,7 +151,7 @@ final class WheelView extends View {
         Path path = new Path();
         path.addArc(range, tempAngle, sweepAngle);
         float textWidth = textPaint.measureText(text);
-        int hOffset = (int) (radius * Math.PI / mWheelItems.size() / 2 - textWidth / 2) ;
+        int hOffset = (int) (radius * Math.PI / mWheelItems.size() / 2 - textWidth / 2);
         int vOffset = (radius / 2 / 3) - 3;
         canvas.drawTextOnPath(text, path, hOffset, vOffset, textPaint);
     }
@@ -170,10 +176,10 @@ final class WheelView extends View {
 
                     @Override
                     public void onAnimationEnd(Animator animation) {
-                        if ( mOnLuckyWheelReachTheTarget != null ) {
+                        if (mOnLuckyWheelReachTheTarget != null) {
                             mOnLuckyWheelReachTheTarget.onReachTarget();
                         }
-                        if ( onRotationListener != null ) {
+                        if (onRotationListener != null) {
                             onRotationListener.onFinishRotation();
                         }
                         clearAnimation();

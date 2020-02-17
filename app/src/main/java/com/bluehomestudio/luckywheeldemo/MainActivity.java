@@ -52,17 +52,17 @@ public class MainActivity extends AppCompatActivity {
 
     private void generateWheelItems() {
         wheelItems = new ArrayList<>();
-        wheelItems.add(new WheelItem(Color.LTGRAY, BitmapFactory.decodeResource(getResources(),
-                R.drawable.ic_action_name) , "100 $"));
-        wheelItems.add(new WheelItem(Color.BLUE, BitmapFactory.decodeResource(getResources(),
-                R.drawable.ic_action_name) , "0 $"));
-        wheelItems.add(new WheelItem(Color.BLACK, BitmapFactory.decodeResource(getResources(),
-                R.drawable.ic_action_name), "30 $"));
-        wheelItems.add(new WheelItem(Color.GRAY, BitmapFactory.decodeResource(getResources(),
-                R.drawable.ic_action_name), "6000 $"));
-        wheelItems.add(new WheelItem(Color.RED, BitmapFactory.decodeResource(getResources(),
-                R.drawable.ic_action_name), "9 $"));
-        wheelItems.add(new WheelItem(Color.GREEN, BitmapFactory.decodeResource(getResources(),
-                R.drawable.ic_action_name), "20 $"));
+        wheelItems.add(new WheelItem(Color.parseColor("#fc6c6c"), BitmapFactory.decodeResource(getResources(),
+                R.drawable.chat) , "100 $"));
+        wheelItems.add(new WheelItem(Color.parseColor("#00E6FF"), BitmapFactory.decodeResource(getResources(),
+                R.drawable.coupon) , "0 $"));
+        wheelItems.add(new WheelItem(Color.parseColor("#F00E6F"), BitmapFactory.decodeResource(getResources(),
+                R.drawable.ice_cream), "30 $"));
+        wheelItems.add(new WheelItem(Color.parseColor("#00E6FF"), BitmapFactory.decodeResource(getResources(),
+                R.drawable.lemonade), "6000 $"));
+        wheelItems.add(new WheelItem(Color.parseColor("#fc6c6c"), BitmapFactory.decodeResource(getResources(),
+                R.drawable.orange), "9 $"));
+        wheelItems.add(new WheelItem(Color.parseColor("#00E6FF"), BitmapFactory.decodeResource(getResources(),
+                R.drawable.shop), "20 $"));
     }
 }

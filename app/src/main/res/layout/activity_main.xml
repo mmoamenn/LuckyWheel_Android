@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_margin="10dp"
-        android:background="#fc6c6c"
+        android:background="#00E6FF"
         android:textColor="@android:color/white"
         android:text="@string/start"/>
 
