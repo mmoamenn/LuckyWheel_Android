@@ -2,7 +2,7 @@
 
 Android custom component that displays a lucky wheel. it features easy customize of colors , text and addition of items and it's very trivial to integrate in your application.
 
-# What's new in 0.2.0
+# What's new in 0.3.0
 
 - Fix the image rotation issue
 
