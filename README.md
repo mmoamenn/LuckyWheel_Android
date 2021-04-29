@@ -9,7 +9,16 @@ Android custom component that displays a lucky wheel. it features easy customize
  **Sample**
  
  ![Lucky wheel](https://github.com/mmoamenn/LuckyWheel_Android/blob/master/samples/color_image.png). 
-    
+
+**Overview**
+
+The LuckyWheel shows a wheel which can spin, and a marker that indicates the selected item in the wheel. Items may be customized with text, image, or a color.
+
+The wheel starts off stationary. Calling the `setTarget()` method with an integer parameter will set the wheel to spin to that section when the user taps the wheel in the UI. Calling `rotateWheelTo()` with an integer parameter will cause the wheel to spin to that section immediately.
+
+The wheel spins for a few seconds, then fires the `setLuckyWheelReachTheTarget` callback to notify the application it has stopped moving.
+
+
  **Installing**
  
  Add it in your root build.gradle at the end of repositories:
