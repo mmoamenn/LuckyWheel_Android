@@ -237,7 +237,10 @@ final class WheelView extends View {
         initComponents();
 
         float tempAngle = 0;
-        float sweepAngle = 360 / mWheelItems.size();
+        float sweepAngle = 360;
+        if (!mWheelItems.isEmpty()) {
+            sweepAngle = 360f / mWheelItems.size();
+        }
 
         for (int i = 0; i < mWheelItems.size(); i++) {
             archPaint.setColor(mWheelItems.get(i).color);
