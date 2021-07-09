@@ -5,5 +5,5 @@ package com.bluehomestudio.luckywheel;
  */
 
 public interface OnLuckyWheelReachTheTarget {
-    void onReachTarget();
+    void onReachTarget(WheelItem item);
 }

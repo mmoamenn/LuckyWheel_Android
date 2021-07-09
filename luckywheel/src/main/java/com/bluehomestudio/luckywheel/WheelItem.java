@@ -8,16 +8,25 @@ import android.graphics.Bitmap;
 
 public class WheelItem {
 
+    public int id;
     public int color;
     public Bitmap bitmap;
     public String text;
 
-        public WheelItem(int color, Bitmap bitmap) {
+    public WheelItem(int id, int color, Bitmap bitmap) {
+        this.id = id;
         this.color = color;
         this.bitmap = bitmap;
     }
 
-    public WheelItem(int color, Bitmap bitmap, String text) {
+    public WheelItem(int id, int color, String text) {
+        this.id = id;
+        this.color = color;
+        this.text = text;
+    }
+
+    public WheelItem(int id, int color, Bitmap bitmap, String text) {
+        this.id = id;
         this.color = color;
         this.bitmap = bitmap;
         this.text = text;
