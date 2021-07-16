@@ -35,6 +35,7 @@ final class WheelView extends View {
 
     private float textSize = 30;
     private Typeface typeface;
+    private Paint.Style archStyle = Paint.Style.FILL;
 
     public WheelView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -49,6 +50,7 @@ final class WheelView extends View {
         archPaint = new Paint();
         archPaint.setAntiAlias(true);
         archPaint.setDither(true);
+        archPaint.setStyle(archStyle);
         //text paint object
         textPaint = new Paint();
         textPaint.setColor(Color.WHITE);
@@ -245,6 +247,11 @@ final class WheelView extends View {
 
     public void setTextSize(float textSize) {
         this.textSize = textSize;
+        invalidate();
+    }
+
+    public void setStyle(Paint.Style style) {
+        this.archStyle = style;
         invalidate();
     }
 

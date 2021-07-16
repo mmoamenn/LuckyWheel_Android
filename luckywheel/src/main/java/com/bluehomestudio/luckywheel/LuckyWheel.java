@@ -3,6 +3,7 @@ package com.bluehomestudio.luckywheel;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -63,10 +64,12 @@ public class LuckyWheel extends FrameLayout implements View.OnTouchListener, OnR
             int imagePadding = typedArray.getDimensionPixelSize(R.styleable.LuckyWheel_image_padding , 0);
             int textSize = typedArray.getDimensionPixelSize(R.styleable.LuckyWheel_text_size, 30);
             int fontFamilyId = typedArray.getResourceId(R.styleable.LuckyWheel_android_fontFamily, 0);
+            int archStyle = typedArray.getInt(R.styleable.LuckyWheel_style, 0);
             wheelView.setWheelBackgroundWheel(backgroundColor);
             wheelView.setItemsImagePadding(imagePadding);
             arrow.setImageResource(arrowImage);
             wheelView.setTextSize(textSize);
+            wheelView.setStyle(Paint.Style.values()[archStyle]);
             if (fontFamilyId > 0) {
                 wheelView.setTypeface(ResourcesCompat.getFont(getContext(), fontFamilyId));
             }
