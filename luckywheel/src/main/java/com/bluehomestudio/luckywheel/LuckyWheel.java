@@ -3,17 +3,19 @@ package com.bluehomestudio.luckywheel;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import java.util.List;
+
 import androidx.annotation.AttrRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
-import java.util.List;
+import androidx.core.content.res.ResourcesCompat;
 
 /**
  * Created by mohamed on 22/04/17.
@@ -60,9 +62,17 @@ public class LuckyWheel extends FrameLayout implements View.OnTouchListener, OnR
             int backgroundColor = typedArray.getColor(R.styleable.LuckyWheel_background_color, Color.GREEN);
             int arrowImage = typedArray.getResourceId(R.styleable.LuckyWheel_arrow_image, R.drawable.arrow);
             int imagePadding = typedArray.getDimensionPixelSize(R.styleable.LuckyWheel_image_padding , 0);
-            wheelView.setWheelBackgoundWheel(backgroundColor);
+            int textSize = typedArray.getDimensionPixelSize(R.styleable.LuckyWheel_text_size, 30);
+            int fontFamilyId = typedArray.getResourceId(R.styleable.LuckyWheel_android_fontFamily, 0);
+            int archStyle = typedArray.getInt(R.styleable.LuckyWheel_style, 0);
+            wheelView.setWheelBackgroundWheel(backgroundColor);
             wheelView.setItemsImagePadding(imagePadding);
             arrow.setImageResource(arrowImage);
+            wheelView.setTextSize(textSize);
+            wheelView.setStyle(Paint.Style.values()[archStyle]);
+            if (fontFamilyId > 0) {
+                wheelView.setTypeface(ResourcesCompat.getFont(getContext(), fontFamilyId));
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

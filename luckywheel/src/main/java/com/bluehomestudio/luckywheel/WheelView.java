@@ -10,14 +10,16 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.graphics.Typeface;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 
-import androidx.annotation.Nullable;
-
+import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.IntRange;
+import androidx.annotation.Nullable;
 
 /**
  * Created by mohamed on 22/04/17.
@@ -27,9 +29,13 @@ final class WheelView extends View {
     private RectF range = new RectF();
     private Paint archPaint, textPaint;
     private int padding, radius, center, mWheelBackground, mImagePadding;
-    private List<WheelItem> mWheelItems;
+    private List<WheelItem> mWheelItems = new ArrayList<>();
     private OnLuckyWheelReachTheTarget mOnLuckyWheelReachTheTarget;
     private OnRotationListener onRotationListener;
+
+    private float textSize = 30;
+    private Typeface typeface;
+    private Paint.Style archStyle = Paint.Style.FILL;
 
     public WheelView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -44,12 +50,18 @@ final class WheelView extends View {
         archPaint = new Paint();
         archPaint.setAntiAlias(true);
         archPaint.setDither(true);
+        archPaint.setStyle(archStyle);
         //text paint object
         textPaint = new Paint();
         textPaint.setColor(Color.WHITE);
         textPaint.setAntiAlias(true);
         textPaint.setDither(true);
-        textPaint.setTextSize(30);
+        textPaint.setTextSize(textSize);
+
+        if (typeface != null) {
+            textPaint.setTypeface(typeface);
+        }
+
         //rect rang of the arc
         range = new RectF(padding, padding, padding + radius, padding + radius);
     }
@@ -59,8 +71,8 @@ final class WheelView extends View {
      *
      * @return Number of angle
      */
-    private float getAngleOfIndexTarget(int target) {
-        return (360 / mWheelItems.size()) * target;
+    private float getAngleOfIndexTarget(@IntRange(from = 1) int target) {
+        return (360f / mWheelItems.size()) * target;
     }
 
     /**
@@ -68,7 +80,7 @@ final class WheelView extends View {
      *
      * @param wheelBackground Wheel background color
      */
-    public void setWheelBackgoundWheel(int wheelBackground) {
+    public void setWheelBackgroundWheel(int wheelBackground) {
         mWheelBackground = wheelBackground;
         invalidate();
     }
@@ -130,11 +142,10 @@ final class WheelView extends View {
         float px = rect.exactCenterX();
         float py = rect.exactCenterY();
         Matrix matrix = new Matrix();
-        matrix.postTranslate(-bitmap.getWidth() / 2, -bitmap.getHeight() / 2);
+        matrix.postTranslate(-bitmap.getWidth() / 2f, -bitmap.getHeight() / 2f);
         matrix.postRotate(tempAngle + 120);
         matrix.postTranslate(px, py);
-        canvas.drawBitmap(bitmap, matrix, new Paint( Paint.ANTI_ALIAS_FLAG | Paint.DITHER_FLAG | Paint.FILTER_BITMAP_FLAG ));
-        Log.d("sadsdsddssd" , bitmap.getWidth() + " : "+bitmap.getHeight());
+        canvas.drawBitmap(bitmap, matrix, new Paint(Paint.ANTI_ALIAS_FLAG | Paint.DITHER_FLAG | Paint.FILTER_BITMAP_FLAG));
         matrix.reset();
     }
 
@@ -161,9 +172,9 @@ final class WheelView extends View {
      *
      * @param target target number
      */
-    public void rotateWheelToTarget(int target) {
+    public void rotateWheelToTarget(final int target) {
 
-        float wheelItemCenter = 270 - getAngleOfIndexTarget(target) + (360 / mWheelItems.size()) / 2;
+        float wheelItemCenter = 270 - getAngleOfIndexTarget(target) + (360f / mWheelItems.size()) / 2;
         int DEFAULT_ROTATION_TIME = 9000;
         animate().setInterpolator(new DecelerateInterpolator())
                 .setDuration(DEFAULT_ROTATION_TIME)
@@ -177,7 +188,7 @@ final class WheelView extends View {
                     @Override
                     public void onAnimationEnd(Animator animation) {
                         if (mOnLuckyWheelReachTheTarget != null) {
-                            mOnLuckyWheelReachTheTarget.onReachTarget();
+                            mOnLuckyWheelReachTheTarget.onReachTarget(mWheelItems.get(target - 1));
                         }
                         if (onRotationListener != null) {
                             onRotationListener.onFinishRotation();
@@ -229,6 +240,21 @@ final class WheelView extends View {
         });
     }
 
+    public void setTypeface(Typeface typeface) {
+        this.typeface = typeface;
+        invalidate();
+    }
+
+    public void setTextSize(float textSize) {
+        this.textSize = textSize;
+        invalidate();
+    }
+
+    public void setStyle(Paint.Style style) {
+        this.archStyle = style;
+        invalidate();
+    }
+
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
@@ -237,13 +263,19 @@ final class WheelView extends View {
         initComponents();
 
         float tempAngle = 0;
-        float sweepAngle = 360 / mWheelItems.size();
+        float sweepAngle = 360;
+        if (!mWheelItems.isEmpty()) {
+            sweepAngle = 360f / mWheelItems.size();
+        }
 
         for (int i = 0; i < mWheelItems.size(); i++) {
-            archPaint.setColor(mWheelItems.get(i).color);
+            WheelItem item = mWheelItems.get(i);
+            archPaint.setColor(item.color);
             canvas.drawArc(range, tempAngle, sweepAngle, true, archPaint);
-            drawImage(canvas, tempAngle, mWheelItems.get(i).bitmap);
-            drawText(canvas, tempAngle, sweepAngle, mWheelItems.get(i).text == null ? "" : mWheelItems.get(i).text);
+            if (item.bitmap != null) {
+                drawImage(canvas, tempAngle, item.bitmap);
+            }
+            drawText(canvas, tempAngle, sweepAngle, item.text == null ? "" : mWheelItems.get(i).text);
             tempAngle += sweepAngle;
         }
 
