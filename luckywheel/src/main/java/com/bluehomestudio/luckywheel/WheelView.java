@@ -49,7 +49,7 @@ final class WheelView extends View {
         textPaint.setColor(Color.WHITE);
         textPaint.setAntiAlias(true);
         textPaint.setDither(true);
-        textPaint.setTextSize(30);
+        textPaint.setTextSize(60);
         //rect rang of the arc
         range = new RectF(padding, padding, padding + radius, padding + radius);
     }
@@ -95,6 +95,13 @@ final class WheelView extends View {
     public void addWheelItems(List<WheelItem> wheelItems) {
         mWheelItems = wheelItems;
         invalidate();
+    }
+
+    public void setTextSize(float textSize) {
+    if (textPaint != null) {
+        textPaint.setTextSize(textSize);
+        invalidate();
+        }
     }
 
     /**
